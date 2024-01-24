@@ -1,0 +1,329 @@
+```{r}
+num_individuals <- rep(c(10, 20, 30, 40, 50), each = 10)
+num_markers <- rep(c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100), times = 5)
+type <- rep(c("T", "R"), each = 50)
+accuracy <- rep(NA, 50)  
+result <- data.frame(`Num of Individuals` = num_individuals,`Num of Markers` = num_markers,`Type` = type, `Accuracy` = accuracy)
+```
+
+
+```{r}
+library(tidyverse)
+dfACB = read_delim("ACB_unrels.raw", delim = "\t") 
+dfPUR = read_delim("PUR_unrels.raw", delim = "\t") 
+dfACB <- dfACB[1:88, 7:10006]
+dfPUR <- dfPUR[1:88, 7:10006]
+```
+
+
+```{r}
+markers <- colnames(dfPUR)
+markers2<-markers
+frequencies <- colSums(dfPUR) / (2 * 88)
+frequencies <- as.numeric(frequencies)
+freq_PUR <- data.frame(markers, frequencies)
+
+frequencies2 <- colSums(dfACB) / (2 * 88)
+frequencies2 <- as.numeric(frequencies2)
+freq_ACB <- data.frame(markers2, frequencies2)
+
+
+Fst_list <- vector("numeric", length = 10000)
+for(i in 1:10000){
+  p1 = freq_PUR[i,2]
+  q1 = 1-p1
+  p2 = freq_ACB[i,2]
+  q2 = 1-p2
+  pbar = (p1+p2)/2
+  qbar = (q1+q2)/2
+  varp = ((pbar-p1)^2 + (pbar-p2)^2)/2
+  Fst <- varp/(pbar * qbar)
+  Fst_list[i] <- Fst
+}
+
+nan_positions <- which(is.nan(Fst_list))
+Fst_list[nan_positions] <- 0
+N <- 100
+top_indices<- order(unlist(Fst_list), decreasing = TRUE)[1:N]
+freq_PUR$frequencies[freq_PUR$frequencies == 0] <- 0.00001
+freq_ACB$frequencies2[freq_ACB$frequencies2 == 0] <- 0.00001
+freq_PUR$frequencies[freq_PUR$frequencies == 1] <- 0.99999
+freq_ACB$frequencies2[freq_ACB$frequencies2 == 1] <- 0.99999
+```
+
+
+```{r}
+#compute delta
+k = 88
+m = 10000
+deltaPUR = data.frame(k, m)
+for(i in 1:k){
+  for(j in 1:m){
+    if(dfPUR[i,j] == 1){
+      deltaPUR[i,j] = 0
+    }else{
+      deltaPUR[i,j] = 1
+    }
+  }
+}
+deltaACB = data.frame(k, m)
+for(i in 1:k){
+  for(j in 1:m){
+    if(dfACB[i,j] == 1){
+      deltaACB[i,j] = 0
+    }else{
+      deltaACB[i,j] = 1
+    }
+  }
+}
+```
+
+```{r}
+dcontrol <- 25
+k = 1 # control number of individuals
+for(w in 1:5){
+  k = w*10
+  print(paste("num of individuals:", k))
+  for(x in 1:10){
+    m <- x*10
+    print("Top   ")
+    print(paste("num of Markers:", m))
+    ppl1value = numeric(k)
+  for(i in 1:k){
+    ppl1value[i] = 1
+  }
+
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfPUR[i,top_indices[j]] == 2){
+        ppl1value[i] = ppl1value[i]*(2-deltaPUR[i,top_indices[j]])*freq_PUR[top_indices[j], 2]*freq_PUR[top_indices[j], 2]
+      }
+      else if(dfPUR[i,top_indices[j]]== 0){
+        ppl1value[i] = ppl1value[i]*(2-deltaPUR[i,top_indices[j]])*(1-freq_PUR[top_indices[j], 2])*(1-freq_PUR[top_indices[j], 2])
+      }
+      else {
+        ppl1value[i] = ppl1value[i]*(2-deltaPUR[i,top_indices[j]])*freq_PUR[top_indices[j], 2]*(1-freq_PUR[top_indices[j], 2])
+      }
+    }
+  }
+     ppl2value = numeric(k)
+  for(i in 1:k){
+    ppl2value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfPUR[i,top_indices[j]] == 2){
+        ppl2value[i] = ppl2value[i]*(2-deltaPUR[i,top_indices[j]])*freq_ACB[top_indices[j], 2]*freq_ACB[top_indices[j], 2]
+      }
+      else if(dfPUR[i,top_indices[j]] == 0){
+        ppl2value[i] = ppl2value[i]*(2-deltaPUR[i,top_indices[j]])*(1-freq_ACB[top_indices[j], 2])*(1-freq_ACB[top_indices[j], 2])
+      }
+      else {
+        ppl2value[i] = ppl2value[i]*(2-deltaPUR[i,top_indices[j]])*freq_ACB[top_indices[j], 2]*(1-freq_ACB[top_indices[j], 2])
+      }
+    }
+  }
+  matrix1 <- matrix(1, nrow = 1, ncol = k)
+  for(i in 1:k){
+    if(ppl1value[i] >= ppl2value[i]){
+      matrix1[i] = 1
+    }else
+      matrix1[i] = 2
+  }
+  ppl1value = numeric(k)
+  for(i in 1:k){
+      ppl1value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfACB[i,top_indices[j]] == 2){
+        ppl1value[i] = ppl1value[i]*(2-deltaACB[i,top_indices[j]])*freq_PUR[top_indices[j], 2]*freq_PUR[top_indices[j], 2]
+      }
+      else if(dfACB[i,top_indices[j]]== 0){
+        ppl1value[i] = ppl1value[i]*(2-deltaACB[i,top_indices[j]])*(1-freq_PUR[top_indices[j], 2])*(1-freq_PUR[top_indices[j], 2])
+      }
+      else {
+        ppl1value[i] = ppl1value[i]*(2-deltaACB[i,top_indices[j]])*freq_PUR[top_indices[j], 2]*(1-freq_PUR[top_indices[j], 2])
+      }
+    }
+  }
+  ppl2value = numeric(k)
+  for(i in 1:k){
+      ppl2value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfACB[i,top_indices[j]] == 2){
+        ppl2value[i] = ppl2value[i]*(2-deltaACB[i,top_indices[j]])*freq_ACB[top_indices[j], 2]*freq_ACB[top_indices[j], 2]
+      }
+      else if(dfACB[i,top_indices[j]] == 0){
+        ppl2value[i] = ppl2value[i]*(2-deltaACB[i,top_indices[j]])*(1-freq_ACB[top_indices[j], 2])*(1-freq_ACB[top_indices[j], 2])
+      }
+      else {
+        ppl2value[i] = ppl2value[i]*(2-deltaACB[i,top_indices[j]])*freq_ACB[top_indices[j], 2]*(1-freq_ACB[top_indices[j], 2])
+      }
+    }
+  }
+  matrix2 <- matrix(0, nrow = 1, ncol = k)
+  for(i in 1:k){
+    if(ppl1value[i]>=ppl2value[i]){
+      matrix2[i] = 1
+    }else
+      matrix2[i] = 2
+  }
+  library(caret)
+  if (all(matrix1 == 2)) {
+  accuracy <- 0.5
+}
+else if (all(matrix2 == 1)) {
+  accuracy <- 0.5
+}
+else{
+  actural_label <- matrix(c(rep(1, k), rep(2, k)), nrow = 2, ncol = k, byrow = TRUE)
+  combined_matrix <- rbind(matrix1, matrix2)
+  predicted_classes <- combined_matrix
+  confusion_matrix<- confusionMatrix(table(predicted_classes, actural_label))
+  accuracy <- confusion_matrix$overall["Accuracy"]
+}
+  l <- 0
+  l <- (w-1)*10 + x
+  #
+  result[l,4] <- accuracy
+  }
+  for(y in 1:10){
+    m <- y*10
+    print("Random   ")
+    print(paste("num of Markers:", m))
+    sum = 0
+    for(d in 1:dcontrol){
+    set.seed(d)
+    random_indices <- sample(1:10000, 140, replace = FALSE)
+    ppl1value = numeric(k)
+  for(i in 1:k){
+    ppl1value[i] = 1
+  }
+
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfPUR[i,random_indices[j]] == 2){
+        ppl1value[i] = ppl1value[i]*(2-deltaPUR[i,random_indices[j]])*freq_PUR[random_indices[j], 2]*freq_PUR[random_indices[j], 2]
+      }
+      else if(dfPUR[i,random_indices[j]] == 0){
+        ppl1value[i] = ppl1value[i]*(2-deltaPUR[i,random_indices[j]])*(1-freq_PUR[random_indices[j], 2])*(1-freq_PUR[random_indices[j], 2])
+      }
+      else {
+        ppl1value[i] = ppl1value[i]*(2-deltaPUR[i,random_indices[j]])*freq_PUR[random_indices[j], 2]*(1-freq_PUR[random_indices[j], 2])
+      }
+    }
+  }
+     ppl2value = numeric(k)
+  for(i in 1:k){
+    ppl2value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfPUR[i,random_indices[j]] == 2){
+        ppl2value[i] = ppl2value[i]*(2-deltaPUR[i,random_indices[j]])*freq_ACB[random_indices[j], 2]*freq_ACB[random_indices[j], 2]
+      }
+      else if(dfPUR[i,random_indices[j]] == 0){
+        ppl2value[i] = ppl2value[i]*(2-deltaPUR[i,random_indices[j]])*(1-freq_ACB[random_indices[j], 2])*(1-freq_ACB[random_indices[j], 2])
+      }
+      else {
+        ppl2value[i] = ppl2value[i]*(2-deltaPUR[i,random_indices[j]])*freq_ACB[random_indices[j], 2]*(1-freq_ACB[random_indices[j], 2])
+      }
+    }
+  }
+
+  matrix1 <- matrix(1, nrow = 1, ncol = k)
+  for(i in 1:k){
+    if(ppl1value[i] > ppl2value[i]){
+      matrix1[i] = 1
+    }else
+      matrix1[i] = 2
+  }
+  ppl1value = numeric(k)
+  for(i in 1:k){
+      ppl1value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfACB[i,random_indices[j]] == 2){
+        ppl1value[i] = ppl1value[i]*(2-deltaACB[i,random_indices[j]])*freq_PUR[random_indices[j], 2]*freq_PUR[random_indices[j], 2]
+      }
+      else if(dfACB[i,random_indices[j]]== 0){
+        ppl1value[i] = ppl1value[i]*(2-deltaACB[i,random_indices[j]])*(1-freq_PUR[random_indices[j], 2])*(1-freq_PUR[random_indices[j], 2])
+      }
+      else {
+        ppl1value[i] = ppl1value[i]*(2-deltaACB[i,random_indices[j]])*freq_PUR[random_indices[j], 2]*(1-freq_PUR[random_indices[j], 2])
+      }
+    }
+  }
+  ppl2value = numeric(k)
+  for(i in 1:k){
+      ppl2value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfACB[i,random_indices[j]] == 2){
+        ppl2value[i] = ppl2value[i]*(2-deltaACB[i,random_indices[j]])*freq_ACB[random_indices[j], 2]*freq_ACB[random_indices[j], 2]
+      }
+      else if(dfACB[i,random_indices[j]]== 0){
+        ppl2value[i] = ppl2value[i]*(2-deltaACB[i,random_indices[j]])*(1-freq_ACB[random_indices[j], 2])*(1-freq_ACB[random_indices[j], 2])
+      }
+      else {
+        ppl2value[i] = ppl2value[i]*(2-deltaACB[i,random_indices[j]])*freq_ACB[random_indices[j], 2]*(1-freq_ACB[random_indices[j], 2])
+      }
+    }
+  }
+  matrix2 <- matrix(0, nrow = 1, ncol = k)
+  for(i in 1:k){
+    if(ppl1value[i]>ppl2value[i]){
+      matrix2[i] = 1
+    }else
+      matrix2[i] = 2
+  }
+  library(caret)
+  actural_label <- matrix(c(rep(1, k), rep(2, k)), nrow = 2, ncol = k, byrow = TRUE)
+  combined_matrix <- rbind(matrix1, matrix2)
+  predicted_classes <- combined_matrix
+  confusion_matrix<- confusionMatrix(table(predicted_classes, actural_label))
+  accuracy <- confusion_matrix$overall["Accuracy"]
+  sum = sum + accuracy
+   }
+   sum = sum/dcontrol
+   l <- 0
+   l <- (w-1)*10 + 50 + y
+   #
+   result[l,4] <- sum
+  }
+}
+
+```
+
+```{r}
+library(ggplot2)
+
+plot_PURACB <- ggplot(result, aes(x = `Num.of.Markers`, y = Accuracy, shape = factor(Type), color = factor(`Num.of.Individuals`))) +
+  geom_point(size = 3) +
+  labs(x = "Number of Markers", y = "Accuracy", color = "Number of Individuals", shape = "Type") +
+  scale_shape_manual(values = c(21, 16)) +  # shape for different Num of Individuals
+  scale_color_brewer(palette = "Set2") +  # color for Type
+  theme_bw()
+theme(panel.background = element_rect(fill = "white"))
+ggsave("plot_PURACB.png",width = 10, height = 8, dpi = 300)
+```
+
+
+
+```{r}
+# Assuming 'result' is your data.frame
+write.csv(result, file = "PURACB.csv", row.names = FALSE)
+```
+
+
+
+
+
+
+
+
