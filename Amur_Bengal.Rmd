@@ -1,0 +1,330 @@
+```{r}
+num_individuals <- rep(13, each = 20)
+num_markers <- rep(c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100), times = 2)
+type <- rep(c("T", "R"), each = 10)
+accuracy <- rep(NA, 20)  
+result <- data.frame(`Num of Individuals` = num_individuals,`Num of Markers` = num_markers,`Type` = type, `Accuracy` = accuracy)
+```
+
+```{r}
+library(tidyverse)
+dfAmur = read_delim("Amur_unrels.raw", delim = "\t") 
+dfBengal = read_delim("Bengal_unrels.raw", delim = "\t") 
+dfGeneric = read_delim("Generic_unrels.raw", delim = "\t")
+dfAmur <- dfAmur[1:13, 7:10006]
+dfBengal <- dfBengal[1:13, 7:10006]
+dfGeneric <- dfGeneric[1:13, 7:10006]
+```
+
+```{r}
+dfAmur <- dfAmur[, colSums(is.na(dfAmur)) == 0]
+dfBengal <- dfBengal[, colSums(is.na(dfBengal)) == 0]
+dfGeneric <- dfGeneric[, colSums(is.na(dfGeneric)) == 0]
+
+common_columns_ab = intersect(names(dfAmur), names(dfBengal))
+common_columns_abc = intersect(common_columns_ab, names(dfGeneric))
+
+
+dfAmur <- dfAmur[, common_columns_abc]
+dfBengal <- dfBengal[, common_columns_abc]
+dfGeneric <- dfGeneric[, common_columns_abc]
+```
+
+
+
+```{r}
+markers <- colnames(dfAmur)
+markers2<-markers
+frequencies <- colSums(dfAmur) / (2 * 13)
+frequencies <- as.numeric(frequencies)
+freq_Amur <- data.frame(markers, frequencies)
+
+frequencies2 <- colSums(dfBengal) / (2 * 13)
+frequencies2 <- as.numeric(frequencies2)
+freq_Bengal <- data.frame(markers2, frequencies2)
+
+
+Fst_list <- vector("numeric", length = 5894)
+for(i in 1:5894){
+  p1 = freq_Amur[i,2]
+  q1 = 1-p1
+  p2 = freq_Bengal[i,2]
+  q2 = 1-p2
+  pbar = (p1+p2)/2
+  qbar = (q1+q2)/2
+  varp = ((pbar-p1)^2 + (pbar-p2)^2)/2
+  Fst <- varp/(pbar * qbar)
+  Fst_list[i] <- Fst
+}
+
+nan_positions <- which(is.nan(Fst_list))
+Fst_list[nan_positions] <- 0
+N <- 100
+top_indices<- order(unlist(Fst_list), decreasing = TRUE)[1:N]
+freq_Amur$frequencies[freq_Amur$frequencies == 0] <- 0.00001
+freq_Bengal$frequencies2[freq_Bengal$frequencies2 == 0] <- 0.00001
+freq_Amur$frequencies[freq_Amur$frequencies == 1] <- 0.99999
+freq_Bengal$frequencies2[freq_Bengal$frequencies2 == 1] <- 0.99999
+```
+
+
+```{r}
+#compute delta
+k = 13
+m = 5894
+deltaAmur = data.frame(k, m)
+for(i in 1:k){
+  for(j in 1:m){
+    if(dfAmur[i,j] == 1){
+      deltaAmur[i,j] = 0
+    }else{
+      deltaAmur[i,j] = 1
+    }
+  }
+}
+deltaBengal = data.frame(k, m)
+for(i in 1:k){
+  for(j in 1:m){
+    if(dfBengal[i,j] == 1){
+      deltaBengal[i,j] = 0
+    }else{
+      deltaBengal[i,j] = 1
+    }
+  }
+}
+```
+
+```{r}
+dcontrol <- 25
+k = 13 # control number of individuals
+  for(x in 1:10){
+    m <- x*10
+    print("Top   ")
+    print(paste("num of Markers:", m))
+    ppl1value = numeric(k)
+  for(i in 1:k){
+    ppl1value[i] = 1
+  }
+
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfAmur[i,top_indices[j]] == 2){
+        ppl1value[i] = ppl1value[i]*(2-deltaAmur[i,top_indices[j]])*freq_Amur[top_indices[j], 2]*freq_Amur[top_indices[j], 2]
+      }
+      else if(dfAmur[i,top_indices[j]]== 0){
+        ppl1value[i] = ppl1value[i]*(2-deltaAmur[i,top_indices[j]])*(1-freq_Amur[top_indices[j], 2])*(1-freq_Amur[top_indices[j], 2])
+      }
+      else {
+        ppl1value[i] = ppl1value[i]*(2-deltaAmur[i,top_indices[j]])*freq_Amur[top_indices[j], 2]*(1-freq_Amur[top_indices[j], 2])
+      }
+    }
+  }
+     ppl2value = numeric(k)
+  for(i in 1:k){
+    ppl2value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfAmur[i,top_indices[j]] == 2){
+        ppl2value[i] = ppl2value[i]*(2-deltaAmur[i,top_indices[j]])*freq_Bengal[top_indices[j], 2]*freq_Bengal[top_indices[j], 2]
+      }
+      else if(dfAmur[i,top_indices[j]] == 0){
+        ppl2value[i] = ppl2value[i]*(2-deltaAmur[i,top_indices[j]])*(1-freq_Bengal[top_indices[j], 2])*(1-freq_Bengal[top_indices[j], 2])
+      }
+      else {
+        ppl2value[i] = ppl2value[i]*(2-deltaAmur[i,top_indices[j]])*freq_Bengal[top_indices[j], 2]*(1-freq_Bengal[top_indices[j], 2])
+      }
+    }
+  }
+  matrix1 <- matrix(1, nrow = 1, ncol = k)
+  for(i in 1:k){
+    if(ppl1value[i] >= ppl2value[i]){
+      matrix1[i] = 1
+    }else
+      matrix1[i] = 2
+  }
+  ppl1value = numeric(k)
+  for(i in 1:k){
+      ppl1value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfBengal[i,top_indices[j]] == 2){
+        ppl1value[i] = ppl1value[i]*(2-deltaBengal[i,top_indices[j]])*freq_Amur[top_indices[j], 2]*freq_Amur[top_indices[j], 2]
+      }
+      else if(dfBengal[i,top_indices[j]]== 0){
+        ppl1value[i] = ppl1value[i]*(2-deltaBengal[i,top_indices[j]])*(1-freq_Amur[top_indices[j], 2])*(1-freq_Amur[top_indices[j], 2])
+      }
+      else {
+        ppl1value[i] = ppl1value[i]*(2-deltaBengal[i,top_indices[j]])*freq_Amur[top_indices[j], 2]*(1-freq_Amur[top_indices[j], 2])
+      }
+    }
+  }
+  ppl2value = numeric(k)
+  for(i in 1:k){
+      ppl2value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfBengal[i,top_indices[j]] == 2){
+        ppl2value[i] = ppl2value[i]*(2-deltaBengal[i,top_indices[j]])*freq_Bengal[top_indices[j], 2]*freq_Bengal[top_indices[j], 2]
+      }
+      else if(dfBengal[i,top_indices[j]] == 0){
+        ppl2value[i] = ppl2value[i]*(2-deltaBengal[i,top_indices[j]])*(1-freq_Bengal[top_indices[j], 2])*(1-freq_Bengal[top_indices[j], 2])
+      }
+      else {
+        ppl2value[i] = ppl2value[i]*(2-deltaBengal[i,top_indices[j]])*freq_Bengal[top_indices[j], 2]*(1-freq_Bengal[top_indices[j], 2])
+      }
+    }
+  }
+  matrix2 <- matrix(0, nrow = 1, ncol = k)
+  for(i in 1:k){
+    if(ppl1value[i]>=ppl2value[i]){
+      matrix2[i] = 1
+    }else
+      matrix2[i] = 2
+  }
+  library(caret)
+  if (all(matrix1 == 2)) {
+  accuracy <- 0.5
+}
+else if (all(matrix2 == 1)) {
+  accuracy <- 0.5
+}
+else{
+  actural_label <- matrix(c(rep(1, k), rep(2, k)), nrow = 2, ncol = k, byrow = TRUE)
+  combined_matrix <- rbind(matrix1, matrix2)
+  predicted_classes <- combined_matrix
+  confusion_matrix<- confusionMatrix(table(predicted_classes, actural_label))
+  accuracy <- confusion_matrix$overall["Accuracy"]
+}
+  l <- 0
+  l <- x
+  #
+  result[l,4] <- accuracy
+  }
+  for(y in 1:10){
+    m <- y*10
+    print("Random   ")
+    print(paste("num of Markers:", m))
+    sum = 0
+    for(d in 1:dcontrol){
+    set.seed(d)
+    random_indices <- sample(1:5894, 140, replace = FALSE)
+    ppl1value = numeric(k)
+  for(i in 1:k){
+    ppl1value[i] = 1
+  }
+
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfAmur[i,random_indices[j]] == 2){
+        ppl1value[i] = ppl1value[i]*(2-deltaAmur[i,random_indices[j]])*freq_Amur[random_indices[j], 2]*freq_Amur[random_indices[j], 2]
+      }
+      else if(dfAmur[i,random_indices[j]] == 0){
+        ppl1value[i] = ppl1value[i]*(2-deltaAmur[i,random_indices[j]])*(1-freq_Amur[random_indices[j], 2])*(1-freq_Amur[random_indices[j], 2])
+      }
+      else {
+        ppl1value[i] = ppl1value[i]*(2-deltaAmur[i,random_indices[j]])*freq_Amur[random_indices[j], 2]*(1-freq_Amur[random_indices[j], 2])
+      }
+    }
+  }
+     ppl2value = numeric(k)
+  for(i in 1:k){
+    ppl2value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfAmur[i,random_indices[j]] == 2){
+        ppl2value[i] = ppl2value[i]*(2-deltaAmur[i,random_indices[j]])*freq_Bengal[random_indices[j], 2]*freq_Bengal[random_indices[j], 2]
+      }
+      else if(dfAmur[i,random_indices[j]] == 0){
+        ppl2value[i] = ppl2value[i]*(2-deltaAmur[i,random_indices[j]])*(1-freq_Bengal[random_indices[j], 2])*(1-freq_Bengal[random_indices[j], 2])
+      }
+      else {
+        ppl2value[i] = ppl2value[i]*(2-deltaAmur[i,random_indices[j]])*freq_Bengal[random_indices[j], 2]*(1-freq_Bengal[random_indices[j], 2])
+      }
+    }
+  }
+
+  matrix1 <- matrix(1, nrow = 1, ncol = k)
+  for(i in 1:k){
+    if(ppl1value[i] > ppl2value[i]){
+      matrix1[i] = 1
+    }else
+      matrix1[i] = 2
+  }
+  ppl1value = numeric(k)
+  for(i in 1:k){
+      ppl1value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfBengal[i,random_indices[j]] == 2){
+        ppl1value[i] = ppl1value[i]*(2-deltaBengal[i,random_indices[j]])*freq_Amur[random_indices[j], 2]*freq_Amur[random_indices[j], 2]
+      }
+      else if(dfBengal[i,random_indices[j]]== 0){
+        ppl1value[i] = ppl1value[i]*(2-deltaBengal[i,random_indices[j]])*(1-freq_Amur[random_indices[j], 2])*(1-freq_Amur[random_indices[j], 2])
+      }
+      else {
+        ppl1value[i] = ppl1value[i]*(2-deltaBengal[i,random_indices[j]])*freq_Amur[random_indices[j], 2]*(1-freq_Amur[random_indices[j], 2])
+      }
+    }
+  }
+  ppl2value = numeric(k)
+  for(i in 1:k){
+      ppl2value[i] = 1
+  }
+  for(i in 1:k){
+    for(j in 1:m){
+      if(dfBengal[i,random_indices[j]] == 2){
+        ppl2value[i] = ppl2value[i]*(2-deltaBengal[i,random_indices[j]])*freq_Bengal[random_indices[j], 2]*freq_Bengal[random_indices[j], 2]
+      }
+      else if(dfBengal[i,random_indices[j]]== 0){
+        ppl2value[i] = ppl2value[i]*(2-deltaBengal[i,random_indices[j]])*(1-freq_Bengal[random_indices[j], 2])*(1-freq_Bengal[random_indices[j], 2])
+      }
+      else {
+        ppl2value[i] = ppl2value[i]*(2-deltaBengal[i,random_indices[j]])*freq_Bengal[random_indices[j], 2]*(1-freq_Bengal[random_indices[j], 2])
+      }
+    }
+  }
+  matrix2 <- matrix(0, nrow = 1, ncol = k)
+  for(i in 1:k){
+    if(ppl1value[i]>ppl2value[i]){
+      matrix2[i] = 1
+    }else
+      matrix2[i] = 2
+  }
+  library(caret)
+  actural_label <- matrix(c(rep(1, k), rep(2, k)), nrow = 2, ncol = k, byrow = TRUE)
+  combined_matrix <- rbind(matrix1, matrix2)
+  predicted_classes <- combined_matrix
+  confusion_matrix<- confusionMatrix(table(predicted_classes, actural_label))
+  accuracy <- confusion_matrix$overall["Accuracy"]
+  sum = sum + accuracy
+   }
+   sum = sum/dcontrol
+   l <- 0
+   l <- 10 + y
+   #
+   result[l,4] <- sum
+  }
+
+
+```
+```{r}
+write.csv(result, file = "Amur_Bengal.csv", row.names = FALSE)
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(result, aes(x = `Num.of.Markers`, y = Accuracy, shape = factor(Type), color = factor(Type))) +
+  geom_point(size = 3) +
+  labs(x = "Number of Markers", y = "Accuracy", shape = "Type") +
+  scale_shape_manual(values = c(21, 16)) + 
+  theme_bw()
+theme(panel.background = element_rect(fill = "white"))
+ggsave("plot_Amur_Bengal.png",width = 10, height = 8, dpi = 300)
+```
+
