@@ -350,7 +350,7 @@ plot_PURACB <- ggplot(data, aes(x = jittered_x, y = accuracy, shape = factor(Typ
         legend.title = element_text(size = 12),
         legend.text = element_text(size = 10))
 
-# Save the plot
+
 ggsave("plot_PURACB_aligned_jitter.png", plot = plot_PURACB, width = 10, height = 8, dpi = 300)
 plot_PURACB
 ```
@@ -381,15 +381,9 @@ a
 ```{r}
 library(tidyverse)
 
-# Assuming 'data' is already defined as per your code
-
-# Create the plot with dots and connecting lines, including a legend
 b<- ggplot(data) +
-  # Add points for plot1 with a color aesthetic for the legend
   geom_point(aes(x = index, y = plot1, color = "PUR"), size = 3) +
-  # Add points for plot2 with a color aesthetic for the legend
   geom_point(aes(x = index, y = plot2, color = "ACB"), size = 3) +
-  # Add segments connecting plot1 and plot2 points for each index, without affecting the legend
   geom_segment(aes(x = index, xend = index, y = plot1, yend = plot2), color = "black", show.legend = FALSE) +
   labs(x = "Top# Fst Marker", y = "Allele Frequency", color = "Population",title = "Frequency Gaps Between Top 100 Fst Markers") +
   scale_color_manual(values = c("PUR" = "red", "ACB" = "blue")) +
