@@ -4,6 +4,14 @@ num_markers <- rep(c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100), times = 5)
 type <- rep(c("T", "R"), each = 50)
 accuracy <- rep(NA, 50)  
 result <- data.frame(`Num of Individuals` = num_individuals,`Num of Markers` = num_markers,`Type` = type, `Accuracy` = accuracy)
+
+result$Accuracy <- NULL
+
+replicate_columns <- paste0("Replicate ", 1:20)
+for(col in replicate_columns) {
+  result[[col]] <- NA
+}
+
 ```
 
 
@@ -79,7 +87,7 @@ for(i in 1:k){
 ```
 
 ```{r}
-dcontrol <- 25
+dcontrol <- 20
 k = 1 # control number of individuals
 for(w in 1:5){
   k = w*10
@@ -288,36 +296,127 @@ else{
   predicted_classes <- combined_matrix
   confusion_matrix<- confusionMatrix(table(predicted_classes, actural_label))
   accuracy <- confusion_matrix$overall["Accuracy"]
-  sum = sum + accuracy
+  #sum = sum + accuracy
+  l <- (w-1)*10 + 50 + y
+  result[l,3+d] <- accuracy
    }
-   sum = sum/dcontrol
-   l <- 0
-   l <- (w-1)*10 + 50 + y
+  # sum = sum/dcontrol
+  # l <- 0
+  # l <- (w-1)*10 + 50 + y
    #
-   result[l,4] <- sum
+  # result[l,4] <- sum
   }
 }
 
 ```
 
 ```{r}
-library(ggplot2)
-
-plot_PURCLM <- ggplot(result, aes(x = `Num.of.Markers`, y = Accuracy, shape = factor(Type), color = factor(`Num.of.Individuals`))) +
-  geom_point(size = 3) +
-  labs(x = "Number of Markers", y = "Accuracy", color = "Number of Individuals", shape = "Type") +
-  scale_shape_manual(values = c(21, 16)) +  # shape for different Num of Individuals
-  scale_color_brewer(palette = "Set2") +  # color for Type
-  theme_bw()
-theme(panel.background = element_rect(fill = "white"))
-ggsave("plot_PURCLM.png",width = 10, height = 8, dpi = 300)
+write.csv(result, file = "PURCLM.csv", row.names = FALSE)
 ```
 
 
+```{r}
+library(tidyverse)
+data <- read.csv("PURCLM.csv")
+data$accuracy <- NA
+data$SD <- NA
+data[data$Type == 'T', 'accuracy'] <- data[data$Type == 'T', 'Replicate.1']
+data[data$Type == 'T', 'SD'] <- 0
+replicate_cols <- grep("Replicate", names(data), value = TRUE)
+data[data$Type == 'R', 'accuracy'] <- rowMeans(data[data$Type == 'R', replicate_cols], na.rm = TRUE)
+data[data$Type == 'R', 'SD'] <- apply(data[data$Type == 'R', replicate_cols], 1, sd, na.rm = TRUE)
+first_three <- data[, 1:3]
+last_two <- data[, c('accuracy', 'SD')]
+data <- cbind(first_three, last_two)
+```
 
 ```{r}
-# Assuming 'result' is your data.frame
-write.csv(result, file = "PURCLM.csv", row.names = FALSE)
+library(ggplot2)
+
+set.seed(120)  # reproducibility
+data$jittered_x <- jitter(as.numeric(as.factor(data$`Num.of.Markers`)), amount = 0.3)
+
+plot_PURCLM <- ggplot(data, aes(x = jittered_x, y = accuracy, shape = factor(Type), color = factor(`Num.of.Individuals`))) +
+  geom_point(size = 3) + 
+  geom_errorbar(aes(ymin = accuracy - 0.5*SD, ymax = accuracy + 0.5*SD, x = jittered_x), width = 0.2) +  # Use the same jittered x-coordinate for error bars
+  labs(x = "Number of Markers", y = "Accuracy", color = "Number of Individuals", shape = "Marker Selection") +
+  scale_shape_manual(values = c(21, 16), labels = c("Random", "Top")) + 
+  scale_color_brewer(palette = "Set2") +  
+  theme_bw() +
+  theme(panel.background = element_rect(fill = "white"),
+        text = element_text(size = 14),
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size = 10))
+
+# Save the plot
+ggsave("plot_PURCLM_aligned_jitter.png", plot = plot_PURCLM, width = 10, height = 8, dpi = 300)
+plot_PURCLM
+```
+
+```{r}
+plot1 <- rep(NA, 100) 
+plot2 <- rep(NA, 100) 
+for (i in 1:100){
+  plot1[i] <- freq_PUR[top_indices[i],2]
+  plot2[i] <- freq_CLM[top_indices[i],2]
+}
+
+data <- data.frame(index = 1:100, plot1 = plot1, plot2 = plot2)
+
+# Convert to long format
+data_long <- pivot_longer(data, cols = c(plot1, plot2), names_to = "plot_type", values_to = "value")
+
+# Create the plot with dots
+a <- ggplot(data_long, aes(x = index, y = value, color = plot_type)) +
+  geom_point() +  # Use geom_point for dots
+  scale_color_manual(values = c("plot1" = "red", "plot2" = "blue"),labels = c("PUR", "CLM")) +
+  labs(x = "Top# Fst Marker", y = "Allele Frequency", color = "Population") +
+  theme_minimal()
+ggsave("PURCLM_TopMarkers_AlleleFreqVsFst.png", plot = a, width = 10, height = 8, dpi = 300)
+a
+```
+
+```{r}
+library(tidyverse)
+
+# Assuming 'data' is already defined as per your code
+
+# Create the plot with dots and connecting lines, including a legend
+b<- ggplot(data) +
+  # Add points for plot1 with a color aesthetic for the legend
+  geom_point(aes(x = index, y = plot1, color = "PUR"), size = 3) +
+  # Add points for plot2 with a color aesthetic for the legend
+  geom_point(aes(x = index, y = plot2, color = "CLM"), size = 3) +
+  # Add segments connecting plot1 and plot2 points for each index, without affecting the legend
+  geom_segment(aes(x = index, xend = index, y = plot1, yend = plot2), color = "black", show.legend = FALSE) +
+  labs(x = "Top# Fst Marker", y = "Allele Frequency", color = "Population",title = "Frequency Gaps Between Top 100 Fst Markers") +
+  scale_color_manual(values = c("PUR" = "red", "CLM" = "blue")) +
+  theme_minimal()
+ggsave("PURCLM_TopMarkers_FreGaps.png", plot = b, width = 10, height = 8, dpi = 300)
+b
+```
+```{r}
+gap <- rep(NA, 100) 
+for (i in 1:100){
+  gap[i] <- abs(freq_PUR[top_indices[i],2] - freq_CLM[top_indices[i],2])
+}
+library(tidyverse)
+data_plot <- data.frame(Index = 1:100, 
+                        Gap = gap, 
+                        Fst = Fst_list[top_indices])
+data_long <- pivot_longer(data_plot, cols = c(Gap, Fst), names_to = "Variable", values_to = "Value")
+
+c<- ggplot(data_long, aes(x = Index, y = Value, color = Variable)) +
+  geom_point() +  
+  geom_smooth(method = "lm", se = FALSE) +  
+  scale_color_manual(values = c("Gap" = "orange", "Fst" = "purple"), 
+                     labels = c("Fst Values", "Frequency Gaps")) +  
+  labs(x = "Top# Fst Marker", 
+       y = "Value", 
+       color = "Value Types") +  
+  theme_minimal() 
+ggsave("PURCLM_TopMarkers_FstValuesVsFreGaps.png", plot = c, width = 10, height = 8, dpi = 300)
+c
 ```
 
 
