@@ -1,0 +1,321 @@
+
+
+```{r}
+#when p1 = 1, q1 = 0, p2 = x --> Fst = (1-x)/(1+x)
+# Define the function representing the equation
+# Define the equation function
+equation <- function(x, c) {
+  (1 - x) / (1 + x) - c
+}
+
+# Initialize an empty list to store x values
+x_values <- list()
+
+# Run 10 iterations with different c values
+for (c in seq(0.01, 0.1, by = 0.01)) {
+  # Solve the equation using uniroot()
+  solution <- uniroot(equation, interval = c(-1, 1), c = c)
+  # Extract the solution
+  x <- solution$root
+  # Store the value in the list
+  x_values[[as.character(c)]] <- x
+}
+x_values <- as.numeric(unlist(x_values))
+# Print the list of x values
+print(x_values)
+```
+
+```{r}
+#test if block above is correct
+p1 = 1
+q1 = 0
+Fst_list <- vector("numeric", length = 10)  # Initialize an empty list to store Fst values
+for (i in 1:10){
+p2 <- x_values[i]
+q2 = 1 - p2
+pbar = (p1+p2)/2
+qbar = (q1+q2)/2
+varp = ((pbar-p1)^2 + (pbar-p2)^2)/2
+Fst <- varp/(pbar * qbar)
+Fst_list[i] <- Fst  # Store the calculated Fst value in the list
+}
+Fst_list <- round(Fst_list, digits = 4)
+print(Fst_list)
+```
+
+```{r}
+#Assign population
+population <- function(sampSize, maxPops){
+  K = maxPops
+  popAssignment = sample(x = 1:K, size = sampSize, replace = TRUE)
+  return(popAssignment)
+}
+
+#Simulate genotypes
+simulateGenotypes <- function(p, numSNPs, sampSize){
+  AF = p #minor allele frequency
+  #AF = runif(1) #minor allele frequency
+  numSNPs = numSNPs #number of sites
+  sampSize = sampSize #number of individuals 
+  
+  x = data.frame(replicate(numSNPs, rbinom(n = sampSize, size = 2, prob = AF))) #make data frame where each column is a SNP and rows are (N) diploid inidivudals 
+  
+  allele_frequencies = colSums(x)/(2*nrow(x)) #multiply by two because you have 2N (or 2*nrows) chromosomes
+  
+  vaf = 2*allele_frequencies*(1-allele_frequencies) #variance of allele frequencies
+  
+  return(x)
+}
+```
+
+```{r}
+MC_result <- matrix(0, nrow = 5, ncol = 10)
+row_names <- c("n = 10", "n = 20", "n = 30", "n = 40", "n = 50")
+rownames(MC_result) <- row_names
+col_names <- c("m = 10", "m = 20", "m = 30", "m = 40","m = 50", "m = 60", "m = 70", "m = 80", "m = 90","m = 100")
+colnames(MC_result) <- col_names
+```
+
+
+
+```{r}
+library(caret)
+kk = 0
+m = 0
+pp = 1
+for (pcontrol in 1:10){
+pp = x_values[pcontrol]
+print("p of ppl1:")
+print(1)
+print("p of ppl2:")
+print(pp)
+kk = 0
+m = 0
+for (mcontrol in 1:10){
+  m = m+10
+  kk = 0
+for(kcontrol in 1:5){
+  kk = kk+10
+print("Number of test samples from each ppl:")
+k = kk
+print(kk)
+tempTime = 0
+tempMC = 0
+for(t in 1:10){
+#print(paste("Trial:", t))
+set.seed(t)
+pop2_GT = simulateGenotypes(p=1, numSNPs = m, 100)
+pop1_GT = simulateGenotypes(p=pp, numSNPs = m, 100)
+pop1_AF = colSums(pop1_GT)/(2*nrow(pop1_GT)) #major allele
+pop2_AF = colSums(pop2_GT)/(2*nrow(pop2_GT)) #major allele
+test2 = simulateGenotypes(p=1, numSNPs = m, k)
+test1 = simulateGenotypes(p=pp, numSNPs = m, k)
+actural_label <- matrix(c(rep(1, k), rep(2, k)), nrow = 2, ncol = k, byrow = TRUE)
+
+delta1 = data.frame(k, m)
+for(i in 1:k){
+  for(j in 1:m){
+    if(test1[i,j] == 1){
+      delta1[i,j] = 0
+    }else{
+      delta1[i,j] = 1
+    }
+  }
+}
+delta2 = data.frame(k, m)
+for(i in 1:k){
+  for(j in 1:m){
+    if(test2[i,j] == 1){
+      delta2[i,j] = 0
+    }else{
+      delta2[i,j] = 1
+    }
+  }
+}
+
+ppl1value = numeric(k)
+for(i in 1:k){
+    ppl1value[i] = 1
+}
+
+for(i in 1:k){
+  for(j in 1:m){
+    if(test1[i,j] == 2){
+      ppl1value[i] = ppl1value[i]*(2-delta1[i,j])*pop1_AF[j]*pop1_AF[j]
+    }
+    else if(test1[i,j] == 0){
+      ppl1value[i] = ppl1value[i]*(2-delta1[i,j])*(1-pop1_AF[j])*(1-pop1_AF[j])
+    }
+    else {
+      ppl1value[i] = ppl1value[i]*(2-delta1[i,j])*pop1_AF[j]*(1-pop1_AF[j])
+    }
+  }
+}
+
+ppl2value = numeric(k)
+for(i in 1:k){
+    ppl2value[i] = 1
+}
+for(i in 1:k){
+  for(j in 1:m){
+    if(test1[i,j] == 2){
+      ppl2value[i] = ppl2value[i]*(2-delta1[i,j])*pop2_AF[j]*pop2_AF[j]
+    }
+    else if(test1[i,j] == 0){
+      ppl2value[i] = ppl2value[i]*(2-delta1[i,j])*(1-pop2_AF[j])*(1-pop2_AF[j])
+    }
+    else {
+      ppl2value[i] = ppl2value[i]*(2-delta1[i,j])*pop2_AF[j]*(1-pop2_AF[j])
+    }
+  }
+}
+matrix1 <- matrix(1, nrow = 1, ncol = k)
+for(i in 1:k){
+  if(ppl1value[i] > ppl2value[i]){
+    matrix1[i] = 1
+  }else if(ppl1value[i] == ppl2value[i]){
+    set.seed(k)
+    matrix1[i] = sample(c(1,2),1)
+  }
+  else{
+    matrix1[i] = 2
+  }
+}
+
+ppl1value = numeric(k)
+for(i in 1:k){
+    ppl1value[i] = 1
+}
+for(i in 1:k){
+  for(j in 1:m){
+    if(test2[i,j] == 2){
+      ppl1value[i] = ppl1value[i]*(2-delta2[i,j])*pop1_AF[j]*pop1_AF[j]
+    }
+    else if(test2[i,j] == 0){
+      ppl1value[i] = ppl1value[i]*(2-delta2[i,j])*(1-pop1_AF[j])*(1-pop1_AF[j])
+    }
+    else {
+      ppl1value[i] = ppl1value[i]*(2-delta2[i,j])*pop1_AF[j]*(1-pop1_AF[j])
+    }
+  }
+}
+ppl2value = numeric(k)
+for(i in 1:k){
+    ppl2value[i] = 1
+}
+for(i in 1:k){
+  for(j in 1:m){
+    if(test2[i,j] == 2){
+      ppl2value[i] = ppl2value[i]*(2-delta2[i,j])*pop2_AF[j]*pop2_AF[j]
+    }
+    else if(test2[i,j] == 0){
+      ppl2value[i] = ppl2value[i]*(2-delta2[i,j])*(1-pop2_AF[j])*(1-pop2_AF[j])
+    }
+    else {
+      ppl2value[i] = ppl2value[i]*(2-delta2[i,j])*pop2_AF[j]*(1-pop2_AF[j])
+    }
+  }
+}
+
+matrix2 <- matrix(0, nrow = 1, ncol = k)
+for(i in 1:k){
+  if(ppl1value[i] > ppl2value[i]){
+    matrix2[i] = 1
+  }else if(ppl1value[i] == ppl2value[i]){
+    set.seed(k)
+    matrix2[i] = sample(c(1,2),1)
+  }
+  else{
+    matrix2[i] = 2
+  }
+}
+#print("matrix1")
+#print(matrix1)
+#print("matrix2")
+#print(matrix2)
+
+
+m1 <- matrix(1, nrow = 1, ncol = k)
+m2 <- matrix(2, nrow = 1, ncol = k)
+actural_label <- rbind(m1, m2)
+combined_matrix <- rbind(matrix1, matrix2)
+#if(all(matrix2 == 1)) {
+#  accuracy <- 0.5
+#}else{
+  predicted_classes <- combined_matrix
+  contingency_table <- table(actural_label, predicted_classes)
+  confusion_matrix <- confusionMatrix(contingency_table)
+  #confusion_matrix<- confusionMatrix(table(predicted_classes, actural_label))
+  misclassification_rate <- 1-confusion_matrix$overall["Accuracy"]
+#}
+tempMC = tempMC + misclassification_rate
+cat("Misclassification rate:", misclassification_rate, "\n")
+cat("\n")
+}
+tempMC = tempMC /t
+MC_result[kk/10,m/10] = tempMC
+  }
+}
+filename2 <- paste0("MisClassification_Fst(0.055_0.1_10)= ", Fst_list[pcontrol], ".csv")
+write.csv(MC_result, filename2)
+}
+```
+
+
+```{r}
+
+library(ggplot2)
+
+tables <- list()
+Fst_list <- c(0.01, 0.02, 0.03, 0.04, 0.05, 0.06,0.07,0.08,0.09,0.1)
+
+for (i in 1:9) {
+
+  file_path <- paste0("MisClassification_Fst= ", i*0.01, ".csv")
+
+  data <- read.csv(file_path, header = TRUE) #
+
+  markers <- colnames(data)[-1]
+  individuals <- data[, 1]
+  misclassification <- as.matrix(data[, -1])
+  
+  df <- expand.grid(Individuals = individuals, Markers = markers)
+  df$Misclassification <- c(misclassification)
+  df$Fstvalue <- rep(Fst_list[i], length(misclassification))
+  
+  tables[[as.character(Fst_list[i])]] <- df
+}
+
+combined_data <- do.call(rbind, tables)
+
+plot<- ggplot(combined_data, aes(x = Markers, y = Individuals, fill = Misclassification)) +
+  geom_tile(color = "white") +
+  facet_wrap(~ Fstvalue, nrow = 3) +
+  scale_fill_gradient(low = "white", high = "blue", breaks = seq(0,0.35, by = 0.02), 
+                      labels = scales::label_number(accuracy = 0.01), limits = c(0, 0.35)) + 
+  labs(x = "Markers", y = "Individuals", fill = "Misclassification Rate") +
+  ggtitle("Misclassification Rate for Different Fst Values") +
+  theme_bw()+
+  
+  scale_x_discrete(labels = c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)) +
+  scale_y_discrete(labels = c(10, 20, 30, 40, 50))
+plot <- plot + theme(
+  legend.key.height = unit(1.5, "cm"), 
+  legend.text = element_text(size = 10) 
+)
+plot
+ggsave("output_plot_Fst[0.01, 0.1].pdf", plot, width = 10, height = 8, dpi = 300)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
