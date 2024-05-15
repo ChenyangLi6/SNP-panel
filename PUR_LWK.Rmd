@@ -86,7 +86,7 @@ for(i in 1:k){
 ```
 
 ```{r}
-dcontrol <- 25
+dcontrol <- 20
 k = 1 # control number of individuals
 for(w in 1:5){
   k = w*10
@@ -295,17 +295,11 @@ else{
   predicted_classes <- combined_matrix
   confusion_matrix<- confusionMatrix(table(predicted_classes, actural_label))
   accuracy <- confusion_matrix$overall["Accuracy"]
-  sum = sum + accuracy
+  l <- (w-1)*10 + 50 + y
+  result[l,3+d] <- accuracy
    }
-   sum = sum/dcontrol
-   l <- 0
-   l <- (w-1)*10 + 50 + y
-   #
-   result[l,4] <- sum
   }
 }
-
-```
 
 
 ```{r}
