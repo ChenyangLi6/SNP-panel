@@ -300,17 +300,37 @@ else{
    }
   }
 }
-
+write.csv(result, file = "PURLWK.csv", row.names = FALSE)
+```
 
 ```{r}
-library(ggplot2)
+library(tidyverse)
+data <- read.csv("PURLWK.csv")
+data$accuracy <- NA
+data$SD <- NA
+data[data$Type == 'T', 'accuracy'] <- data[data$Type == 'T', 'Replicate.1']
+data[data$Type == 'T', 'SD'] <- 0
+replicate_cols <- grep("Replicate", names(data), value = TRUE)
+data[data$Type == 'R', 'accuracy'] <- rowMeans(data[data$Type == 'R', replicate_cols], na.rm = TRUE)
+data[data$Type == 'R', 'SD'] <- apply(data[data$Type == 'R', replicate_cols], 1, sd, na.rm = TRUE)
+first_three <- data[, 1:3]
+last_two <- data[, c('accuracy', 'SD')]
+data <- cbind(first_three, last_two)
 
-ggplot(result, aes(x = `Num.of.Markers`, y = Accuracy, shape = factor(Type), color = factor(`Num.of.Individuals`))) +
-  geom_point(size = 3) +
-  labs(x = "Number of Markers", y = "Accuracy", color = "Number of Individuals", shape = "Type") +
-  scale_shape_manual(values = c(21, 16)) +  # shape for different Num of Individuals
-  scale_color_brewer(palette = "Set2") +  # color for Type
-  theme_minimal()
+set.seed(120)  # reproducibility
+data$jittered_x <- jitter(as.numeric(as.factor(data$`Num.of.Markers`)), amount = 0.3)
+
+plot_PURLWK <- ggplot(data, aes(x = jittered_x, y = accuracy, shape = factor(Type), color = factor(`Num.of.Individuals`))) +
+  geom_point(size = 3) + 
+  geom_errorbar(aes(ymin = accuracy - 0.5*SD, ymax = accuracy + 0.5*SD, x = jittered_x), width = 0.2) +  # Use the same jittered x-coordinate for error bars
+  labs(x = "Number of Markers", y = "Accuracy", color = "Number of Individuals", shape = "Marker Selection") +
+  scale_shape_manual(values = c(21, 16), labels = c("Random", "Top")) + 
+  scale_color_brewer(palette = "Set2") +  
+  theme_bw() +
+  theme(panel.background = element_rect(fill = "white"),
+        text = element_text(size = 14),
+        legend.title = element_text(size = 12),
+        legend.text = element_text(size = 10))
 ```
 
 
