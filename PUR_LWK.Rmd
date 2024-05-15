@@ -4,6 +4,13 @@ num_markers <- rep(c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100), times = 5)
 type <- rep(c("T", "R"), each = 50)
 accuracy <- rep(NA, 50)  
 result <- data.frame(`Num of Individuals` = num_individuals,`Num of Markers` = num_markers,`Type` = type, `Accuracy` = accuracy)
+
+result$Accuracy <- NULL
+
+replicate_columns <- paste0("Replicate ", 1:20)
+for(col in replicate_columns) {
+  result[[col]] <- NA
+}
 ```
 
 
