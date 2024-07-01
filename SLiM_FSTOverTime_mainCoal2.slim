@@ -1,0 +1,56 @@
+// set up a simple neutral simulation
+initialize() {
+	initializeTreeSeq();
+	initializeMutationRate(1e-8);
+	
+	// m1 mutation type: neutral
+	initializeMutationType("m1", 0.5, "f", 0.0);
+	
+	// g1 genomic element type: uses m1 for all mutations
+	initializeGenomicElementType("g1", m1, 1.0);
+	
+	// uniform chromosome of length 100Mb with uniform recombination
+	initializeGenomicElement(g1, 0, 99999999);
+	initializeRecombinationRate(1e-8);
+}
+
+// create a population of 10k individuals
+1 late() {
+	sim.readFromPopulationFile("/scratch1/tferrari/forcaPipeline/SLiM_FSTvsTime/out4/FST_burnin.trees");
+}
+
+// after burn-in, split into 2 subpopulations of 10k
+274465 late() {
+	sim.addSubpopSplit("p2", 10000, p1);
+	
+	// log FST over time
+	log = community.createLogFile("/scratch1/tferrari/forcaPipeline/SLiM_FSTvsTime/out6/sim_FST_log.txt", logInterval=10);
+	log.addCycle();
+	log.addCustomColumn("FST", "calcFST(p1.genomes, p2.genomes);");
+
+	// Set FST increment
+	defineGlobal("incrFST",0.01);
+
+	// Set burn-in tick
+	defineGlobal("burnTick", sim.cycle);
+
+}
+
+// output VCFs every 200 generations after split until simulation end (based on theoretical expectations of FST, this means VCFs are output in FST increments of 0.01)
+274466:276465 late () {
+	if ( (sim.cycle - burnTick) % 200 == 0 ){
+
+		// sample 100 individuals from each population	
+		sample = c(p1.sampleIndividuals(100), p2.sampleIndividuals(100));
+
+		// output sample to VCF
+		sample.genomes.outputVCF(filePath=paste("/scratch1/tferrari/forcaPipeline/SLiM_FSTvsTime/out6/bothpops_expFST",incrFST,"_samp100each.vcf",sep=""), outputMultiallelics = F);
+		
+		// save trees file
+		sim.treeSeqOutput(paste("/scratch1/tferrari/forcaPipeline/SLiM_FSTvsTime/out6/bothpops_expFST",incrFST,"_samp100each.trees",sep=""));
+
+		// increment FST
+		defineGlobal("incrFST",incrFST+0.01);
+	}
+}
+
