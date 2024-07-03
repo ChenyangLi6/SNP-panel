@@ -1,5 +1,5 @@
 Each Rmd file contains the code that was used to run the classification analysis from the .raw file for the corresponding data
-There is a single summary file where we concatenated the results from each empirical classification called ClassificationResults_allComps.csv
+There is a single summary file where we concatenated the results from each empirical classification called ClassificationAccuracyPlotting.txt
 
 We conducted analytical simulations where we fixed the allele frequency in pop1 = 1 and then generated GTs in pop2 to achieve a desired FST
 The misclassification results from this are summarized in Simulate_FixAlleleFreqPop1_MissclassificationRate.csv
