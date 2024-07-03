@@ -1,0 +1,541 @@
+Comparison	Num.of.Individuals	Num.of.Markers	Type	accuracy	SD
+Amur vs Bengal	13	10	T	1	0
+Amur vs Bengal	13	20	T	1	0
+Amur vs Bengal	13	30	T	1	0
+Amur vs Bengal	13	40	T	1	0
+Amur vs Bengal	13	50	T	1	0
+Amur vs Bengal	13	60	T	1	0
+Amur vs Bengal	13	70	T	1	0
+Amur vs Bengal	13	80	T	1	0
+Amur vs Bengal	13	90	T	1	0
+Amur vs Bengal	13	100	T	1	0
+Amur vs Bengal	13	10	R	0.917307692307692	0.0651699261736857
+Amur vs Bengal	13	20	R	0.967307692307692	0.0503414068211743
+Amur vs Bengal	13	30	R	0.988461538461539	0.0219707911760569
+Amur vs Bengal	13	40	R	1	0
+Amur vs Bengal	13	50	R	0.998076923076923	0.00860026145192226
+Amur vs Bengal	13	60	R	0.998076923076923	0.00860026145192226
+Amur vs Bengal	13	70	R	0.998076923076923	0.00860026145192226
+Amur vs Bengal	13	80	R	1	0
+Amur vs Bengal	13	90	R	1	0
+Amur vs Bengal	13	100	R	1	0
+Amur vs Generic	13	10	T	1	0
+Amur vs Generic	13	20	T	1	0
+Amur vs Generic	13	30	T	1	0
+Amur vs Generic	13	40	T	1	0
+Amur vs Generic	13	50	T	1	0
+Amur vs Generic	13	60	T	1	0
+Amur vs Generic	13	70	T	1	0
+Amur vs Generic	13	80	T	1	0
+Amur vs Generic	13	90	T	1	0
+Amur vs Generic	13	100	T	1	0
+Amur vs Generic	13	10	R	0.844230769230769	0.0813263990522702
+Amur vs Generic	13	20	R	0.919230769230769	0.0570476806699666
+Amur vs Generic	13	30	R	0.967307692307692	0.0380033436218494
+Amur vs Generic	13	40	R	0.982692307692308	0.0232617430318961
+Amur vs Generic	13	50	R	0.992307692307692	0.0157842823397716
+Amur vs Generic	13	60	R	0.998076923076923	0.00860026145192226
+Amur vs Generic	13	70	R	0.996153846153846	0.0118382117548287
+Amur vs Generic	13	80	R	1	0
+Amur vs Generic	13	90	R	1	0
+Amur vs Generic	13	100	R	1	0
+Yorkshire Terrier vs Labrador Retriever	10	10	T	1	0
+Yorkshire Terrier vs Labrador Retriever	10	20	T	1	0
+Yorkshire Terrier vs Labrador Retriever	10	30	T	1	0
+Yorkshire Terrier vs Labrador Retriever	10	40	T	1	0
+Yorkshire Terrier vs Labrador Retriever	10	50	T	1	0
+Yorkshire Terrier vs Labrador Retriever	10	60	T	1	0
+Yorkshire Terrier vs Labrador Retriever	10	70	T	1	0
+Yorkshire Terrier vs Labrador Retriever	10	80	T	1	0
+Yorkshire Terrier vs Labrador Retriever	10	90	T	1	0
+Yorkshire Terrier vs Labrador Retriever	10	100	T	1	0
+Yorkshire Terrier vs Labrador Retriever	20	10	T	1	0
+Yorkshire Terrier vs Labrador Retriever	20	20	T	1	0
+Yorkshire Terrier vs Labrador Retriever	20	30	T	1	0
+Yorkshire Terrier vs Labrador Retriever	20	40	T	1	0
+Yorkshire Terrier vs Labrador Retriever	20	50	T	1	0
+Yorkshire Terrier vs Labrador Retriever	20	60	T	1	0
+Yorkshire Terrier vs Labrador Retriever	20	70	T	1	0
+Yorkshire Terrier vs Labrador Retriever	20	80	T	1	0
+Yorkshire Terrier vs Labrador Retriever	20	90	T	1	0
+Yorkshire Terrier vs Labrador Retriever	20	100	T	1	0
+Yorkshire Terrier vs Labrador Retriever	30	10	T	1	0
+Yorkshire Terrier vs Labrador Retriever	30	20	T	1	0
+Yorkshire Terrier vs Labrador Retriever	30	30	T	1	0
+Yorkshire Terrier vs Labrador Retriever	30	40	T	1	0
+Yorkshire Terrier vs Labrador Retriever	30	50	T	1	0
+Yorkshire Terrier vs Labrador Retriever	30	60	T	1	0
+Yorkshire Terrier vs Labrador Retriever	30	70	T	1	0
+Yorkshire Terrier vs Labrador Retriever	30	80	T	1	0
+Yorkshire Terrier vs Labrador Retriever	30	90	T	1	0
+Yorkshire Terrier vs Labrador Retriever	30	100	T	1	0
+Yorkshire Terrier vs Labrador Retriever	40	10	T	1	0
+Yorkshire Terrier vs Labrador Retriever	40	20	T	1	0
+Yorkshire Terrier vs Labrador Retriever	40	30	T	1	0
+Yorkshire Terrier vs Labrador Retriever	40	40	T	1	0
+Yorkshire Terrier vs Labrador Retriever	40	50	T	1	0
+Yorkshire Terrier vs Labrador Retriever	40	60	T	1	0
+Yorkshire Terrier vs Labrador Retriever	40	70	T	1	0
+Yorkshire Terrier vs Labrador Retriever	40	80	T	1	0
+Yorkshire Terrier vs Labrador Retriever	40	90	T	1	0
+Yorkshire Terrier vs Labrador Retriever	40	100	T	1	0
+Yorkshire Terrier vs Labrador Retriever	50	10	T	1	0
+Yorkshire Terrier vs Labrador Retriever	50	20	T	1	0
+Yorkshire Terrier vs Labrador Retriever	50	30	T	1	0
+Yorkshire Terrier vs Labrador Retriever	50	40	T	1	0
+Yorkshire Terrier vs Labrador Retriever	50	50	T	1	0
+Yorkshire Terrier vs Labrador Retriever	50	60	T	1	0
+Yorkshire Terrier vs Labrador Retriever	50	70	T	1	0
+Yorkshire Terrier vs Labrador Retriever	50	80	T	1	0
+Yorkshire Terrier vs Labrador Retriever	50	90	T	1	0
+Yorkshire Terrier vs Labrador Retriever	50	100	T	1	0
+Yorkshire Terrier vs Labrador Retriever	10	10	R	0.915	0.0812727700887249
+Yorkshire Terrier vs Labrador Retriever	10	20	R	0.97	0.034027852368936
+Yorkshire Terrier vs Labrador Retriever	10	30	R	0.985	0.028562028528874
+Yorkshire Terrier vs Labrador Retriever	10	40	R	1	0
+Yorkshire Terrier vs Labrador Retriever	10	50	R	0.9975	0.011180339887499
+Yorkshire Terrier vs Labrador Retriever	10	60	R	1	0
+Yorkshire Terrier vs Labrador Retriever	10	70	R	1	0
+Yorkshire Terrier vs Labrador Retriever	10	80	R	1	0
+Yorkshire Terrier vs Labrador Retriever	10	90	R	1	0
+Yorkshire Terrier vs Labrador Retriever	10	100	R	1	0
+Yorkshire Terrier vs Labrador Retriever	20	10	R	0.9125	0.0646346004779744
+Yorkshire Terrier vs Labrador Retriever	20	20	R	0.965	0.0296913951738281
+Yorkshire Terrier vs Labrador Retriever	20	30	R	0.98125	0.0342926645524267
+Yorkshire Terrier vs Labrador Retriever	20	40	R	0.9925	0.014281014264437
+Yorkshire Terrier vs Labrador Retriever	20	50	R	0.99625	0.00915868871331309
+Yorkshire Terrier vs Labrador Retriever	20	60	R	1	0
+Yorkshire Terrier vs Labrador Retriever	20	70	R	1	0
+Yorkshire Terrier vs Labrador Retriever	20	80	R	1	0
+Yorkshire Terrier vs Labrador Retriever	20	90	R	1	0
+Yorkshire Terrier vs Labrador Retriever	20	100	R	1	0
+Yorkshire Terrier vs Labrador Retriever	30	10	R	0.916666666666667	0.0639809913291596
+Yorkshire Terrier vs Labrador Retriever	30	20	R	0.969166666666667	0.0204303123035041
+Yorkshire Terrier vs Labrador Retriever	30	30	R	0.9825	0.0226045330029333
+Yorkshire Terrier vs Labrador Retriever	30	40	R	0.993333333333333	0.012565617248751
+Yorkshire Terrier vs Labrador Retriever	30	50	R	0.996666666666667	0.00683985568056785
+Yorkshire Terrier vs Labrador Retriever	30	60	R	0.999166666666667	0.00372677996249974
+Yorkshire Terrier vs Labrador Retriever	30	70	R	1	0
+Yorkshire Terrier vs Labrador Retriever	30	80	R	0.999166666666667	0.00372677996249974
+Yorkshire Terrier vs Labrador Retriever	30	90	R	0.999166666666667	0.00372677996249974
+Yorkshire Terrier vs Labrador Retriever	30	100	R	0.999166666666667	0.00372677996249974
+Yorkshire Terrier vs Labrador Retriever	40	10	R	0.91	0.0571528421727306
+Yorkshire Terrier vs Labrador Retriever	40	20	R	0.964375	0.0226801994560987
+Yorkshire Terrier vs Labrador Retriever	40	30	R	0.979375	0.0168561054064598
+Yorkshire Terrier vs Labrador Retriever	40	40	R	0.993125	0.00948943318145309
+Yorkshire Terrier vs Labrador Retriever	40	50	R	0.99625	0.00587702932477032
+Yorkshire Terrier vs Labrador Retriever	40	60	R	0.998125	0.00457934435665652
+Yorkshire Terrier vs Labrador Retriever	40	70	R	0.99875	0.00384741882031931
+Yorkshire Terrier vs Labrador Retriever	40	80	R	0.99875	0.00384741882031931
+Yorkshire Terrier vs Labrador Retriever	40	90	R	0.999375	0.00279508497187473
+Yorkshire Terrier vs Labrador Retriever	40	100	R	0.99875	0.00384741882031931
+Yorkshire Terrier vs Labrador Retriever	50	10	R	0.91	0.0526157871045524
+Yorkshire Terrier vs Labrador Retriever	50	20	R	0.967	0.0225014619408092
+Yorkshire Terrier vs Labrador Retriever	50	30	R	0.9805	0.0179105966869954
+Yorkshire Terrier vs Labrador Retriever	50	40	R	0.993	0.00864504725870618
+Yorkshire Terrier vs Labrador Retriever	50	50	R	0.9965	0.005871429486124
+Yorkshire Terrier vs Labrador Retriever	50	60	R	0.9985	0.00366347548532524
+Yorkshire Terrier vs Labrador Retriever	50	70	R	0.999	0.00307793505625547
+Yorkshire Terrier vs Labrador Retriever	50	80	R	0.999	0.00307793505625547
+Yorkshire Terrier vs Labrador Retriever	50	90	R	0.9995	0.00223606797749979
+Yorkshire Terrier vs Labrador Retriever	50	100	R	0.999	0.00307793505625547
+Puerto Rican vs Afro-Caribbean	10	10	T	1	0
+Puerto Rican vs Afro-Caribbean	10	20	T	1	0
+Puerto Rican vs Afro-Caribbean	10	30	T	1	0
+Puerto Rican vs Afro-Caribbean	10	40	T	1	0
+Puerto Rican vs Afro-Caribbean	10	50	T	1	0
+Puerto Rican vs Afro-Caribbean	10	60	T	1	0
+Puerto Rican vs Afro-Caribbean	10	70	T	1	0
+Puerto Rican vs Afro-Caribbean	10	80	T	1	0
+Puerto Rican vs Afro-Caribbean	10	90	T	1	0
+Puerto Rican vs Afro-Caribbean	10	100	T	1	0
+Puerto Rican vs Afro-Caribbean	20	10	T	0.975	0
+Puerto Rican vs Afro-Caribbean	20	20	T	0.975	0
+Puerto Rican vs Afro-Caribbean	20	30	T	1	0
+Puerto Rican vs Afro-Caribbean	20	40	T	1	0
+Puerto Rican vs Afro-Caribbean	20	50	T	1	0
+Puerto Rican vs Afro-Caribbean	20	60	T	1	0
+Puerto Rican vs Afro-Caribbean	20	70	T	1	0
+Puerto Rican vs Afro-Caribbean	20	80	T	1	0
+Puerto Rican vs Afro-Caribbean	20	90	T	1	0
+Puerto Rican vs Afro-Caribbean	20	100	T	1	0
+Puerto Rican vs Afro-Caribbean	30	10	T	0.983333333333333	0
+Puerto Rican vs Afro-Caribbean	30	20	T	0.983333333333333	0
+Puerto Rican vs Afro-Caribbean	30	30	T	1	0
+Puerto Rican vs Afro-Caribbean	30	40	T	1	0
+Puerto Rican vs Afro-Caribbean	30	50	T	1	0
+Puerto Rican vs Afro-Caribbean	30	60	T	1	0
+Puerto Rican vs Afro-Caribbean	30	70	T	1	0
+Puerto Rican vs Afro-Caribbean	30	80	T	1	0
+Puerto Rican vs Afro-Caribbean	30	90	T	1	0
+Puerto Rican vs Afro-Caribbean	30	100	T	1	0
+Puerto Rican vs Afro-Caribbean	40	10	T	0.9875	0
+Puerto Rican vs Afro-Caribbean	40	20	T	0.9875	0
+Puerto Rican vs Afro-Caribbean	40	30	T	1	0
+Puerto Rican vs Afro-Caribbean	40	40	T	1	0
+Puerto Rican vs Afro-Caribbean	40	50	T	1	0
+Puerto Rican vs Afro-Caribbean	40	60	T	1	0
+Puerto Rican vs Afro-Caribbean	40	70	T	1	0
+Puerto Rican vs Afro-Caribbean	40	80	T	1	0
+Puerto Rican vs Afro-Caribbean	40	90	T	1	0
+Puerto Rican vs Afro-Caribbean	40	100	T	1	0
+Puerto Rican vs Afro-Caribbean	50	10	T	0.98	0
+Puerto Rican vs Afro-Caribbean	50	20	T	0.99	0
+Puerto Rican vs Afro-Caribbean	50	30	T	1	0
+Puerto Rican vs Afro-Caribbean	50	40	T	1	0
+Puerto Rican vs Afro-Caribbean	50	50	T	1	0
+Puerto Rican vs Afro-Caribbean	50	60	T	1	0
+Puerto Rican vs Afro-Caribbean	50	70	T	1	0
+Puerto Rican vs Afro-Caribbean	50	80	T	1	0
+Puerto Rican vs Afro-Caribbean	50	90	T	1	0
+Puerto Rican vs Afro-Caribbean	50	100	T	1	0
+Puerto Rican vs Afro-Caribbean	10	10	R	0.785	0.126802789276975
+Puerto Rican vs Afro-Caribbean	10	20	R	0.885	0.0670820393249937
+Puerto Rican vs Afro-Caribbean	10	30	R	0.93	0.0571240570577479
+Puerto Rican vs Afro-Caribbean	10	40	R	0.95	0.0628280862437543
+Puerto Rican vs Afro-Caribbean	10	50	R	0.9725	0.0412788973740948
+Puerto Rican vs Afro-Caribbean	10	60	R	0.98	0.034027852368936
+Puerto Rican vs Afro-Caribbean	10	70	R	0.9825	0.02935714743062
+Puerto Rican vs Afro-Caribbean	10	80	R	0.975	0.0344123600805843
+Puerto Rican vs Afro-Caribbean	10	90	R	0.9825	0.02935714743062
+Puerto Rican vs Afro-Caribbean	10	100	R	0.985	0.028562028528874
+Puerto Rican vs Afro-Caribbean	20	10	R	0.7875	0.104974934351517
+Puerto Rican vs Afro-Caribbean	20	20	R	0.87625	0.0540923917210661
+Puerto Rican vs Afro-Caribbean	20	30	R	0.9225	0.0404741632987866
+Puerto Rican vs Afro-Caribbean	20	40	R	0.945	0.049736145915484
+Puerto Rican vs Afro-Caribbean	20	50	R	0.96875	0.031282877442023
+Puerto Rican vs Afro-Caribbean	20	60	R	0.975	0.0362738125055006
+Puerto Rican vs Afro-Caribbean	20	70	R	0.98	0.0208377188366623
+Puerto Rican vs Afro-Caribbean	20	80	R	0.97625	0.0171583185288315
+Puerto Rican vs Afro-Caribbean	20	90	R	0.98125	0.0137529901055045
+Puerto Rican vs Afro-Caribbean	20	100	R	0.98375	0.0186289955092649
+Puerto Rican vs Afro-Caribbean	30	10	R	0.796666666666667	0.0877929515347404
+Puerto Rican vs Afro-Caribbean	30	20	R	0.883333333333333	0.0587391896238007
+Puerto Rican vs Afro-Caribbean	30	30	R	0.930833333333333	0.0355717707907968
+Puerto Rican vs Afro-Caribbean	30	40	R	0.949166666666666	0.0395423379585486
+Puerto Rican vs Afro-Caribbean	30	50	R	0.973333333333333	0.0244231699021682
+Puerto Rican vs Afro-Caribbean	30	60	R	0.978333333333333	0.0259892015362386
+Puerto Rican vs Afro-Caribbean	30	70	R	0.9825	0.0175010442462043
+Puerto Rican vs Afro-Caribbean	30	80	R	0.98	0.0138918125577747
+Puerto Rican vs Afro-Caribbean	30	90	R	0.984166666666667	0.0114388790192209
+Puerto Rican vs Afro-Caribbean	30	100	R	0.986666666666667	0.0138918125577748
+Puerto Rican vs Afro-Caribbean	40	10	R	0.795	0.0734936445515779
+Puerto Rican vs Afro-Caribbean	40	20	R	0.888125	0.0475510459788658
+Puerto Rican vs Afro-Caribbean	40	30	R	0.931875	0.0325644603662853
+Puerto Rican vs Afro-Caribbean	40	40	R	0.950625	0.0312763047184623
+Puerto Rican vs Afro-Caribbean	40	50	R	0.970625	0.0226801994560987
+Puerto Rican vs Afro-Caribbean	40	60	R	0.978125	0.0217926079934893
+Puerto Rican vs Afro-Caribbean	40	70	R	0.9825	0.0136930639376292
+Puerto Rican vs Afro-Caribbean	40	80	R	0.981875	0.0118064155173542
+Puerto Rican vs Afro-Caribbean	40	90	R	0.985	0.00959714869937394
+Puerto Rican vs Afro-Caribbean	40	100	R	0.9875	0.0114707866935281
+Puerto Rican vs Afro-Caribbean	50	10	R	0.8025	0.0630684673901893
+Puerto Rican vs Afro-Caribbean	50	20	R	0.891	0.0427846504694087
+Puerto Rican vs Afro-Caribbean	50	30	R	0.933	0.029929742292312
+Puerto Rican vs Afro-Caribbean	50	40	R	0.9515	0.0332890056135181
+Puerto Rican vs Afro-Caribbean	50	50	R	0.97	0.0238415824271708
+Puerto Rican vs Afro-Caribbean	50	60	R	0.9775	0.0194327450183284
+Puerto Rican vs Afro-Caribbean	50	70	R	0.9835	0.0134848843251679
+Puerto Rican vs Afro-Caribbean	50	80	R	0.9835	0.0108942283125661
+Puerto Rican vs Afro-Caribbean	50	90	R	0.986	0.00882579950158088
+Puerto Rican vs Afro-Caribbean	50	100	R	0.989	0.00911909506128992
+Puerto Rican vs Colombian	10	10	T	0.95	0
+Puerto Rican vs Colombian	10	20	T	0.9	0
+Puerto Rican vs Colombian	10	30	T	0.9	0
+Puerto Rican vs Colombian	10	40	T	1	0
+Puerto Rican vs Colombian	10	50	T	1	0
+Puerto Rican vs Colombian	10	60	T	1	0
+Puerto Rican vs Colombian	10	70	T	1	0
+Puerto Rican vs Colombian	10	80	T	1	0
+Puerto Rican vs Colombian	10	90	T	1	0
+Puerto Rican vs Colombian	10	100	T	1	0
+Puerto Rican vs Colombian	20	10	T	0.95	0
+Puerto Rican vs Colombian	20	20	T	0.925	0
+Puerto Rican vs Colombian	20	30	T	0.925	0
+Puerto Rican vs Colombian	20	40	T	1	0
+Puerto Rican vs Colombian	20	50	T	1	0
+Puerto Rican vs Colombian	20	60	T	1	0
+Puerto Rican vs Colombian	20	70	T	1	0
+Puerto Rican vs Colombian	20	80	T	1	0
+Puerto Rican vs Colombian	20	90	T	1	0
+Puerto Rican vs Colombian	20	100	T	1	0
+Puerto Rican vs Colombian	30	10	T	0.916666666666667	0
+Puerto Rican vs Colombian	30	20	T	0.916666666666667	0
+Puerto Rican vs Colombian	30	30	T	0.933333333333333	0
+Puerto Rican vs Colombian	30	40	T	1	0
+Puerto Rican vs Colombian	30	50	T	0.983333333333333	0
+Puerto Rican vs Colombian	30	60	T	0.983333333333333	0
+Puerto Rican vs Colombian	30	70	T	1	0
+Puerto Rican vs Colombian	30	80	T	0.983333333333333	0
+Puerto Rican vs Colombian	30	90	T	1	0
+Puerto Rican vs Colombian	30	100	T	1	0
+Puerto Rican vs Colombian	40	10	T	0.9	0
+Puerto Rican vs Colombian	40	20	T	0.9375	0
+Puerto Rican vs Colombian	40	30	T	0.95	0
+Puerto Rican vs Colombian	40	40	T	0.9875	0
+Puerto Rican vs Colombian	40	50	T	0.9875	0
+Puerto Rican vs Colombian	40	60	T	0.9875	0
+Puerto Rican vs Colombian	40	70	T	1	0
+Puerto Rican vs Colombian	40	80	T	0.9875	0
+Puerto Rican vs Colombian	40	90	T	1	0
+Puerto Rican vs Colombian	40	100	T	1	0
+Puerto Rican vs Colombian	50	10	T	0.89	0
+Puerto Rican vs Colombian	50	20	T	0.92	0
+Puerto Rican vs Colombian	50	30	T	0.95	0
+Puerto Rican vs Colombian	50	40	T	0.99	0
+Puerto Rican vs Colombian	50	50	T	0.98	0
+Puerto Rican vs Colombian	50	60	T	0.99	0
+Puerto Rican vs Colombian	50	70	T	1	0
+Puerto Rican vs Colombian	50	80	T	0.99	0
+Puerto Rican vs Colombian	50	90	T	1	0
+Puerto Rican vs Colombian	50	100	T	1	0
+Puerto Rican vs Colombian	10	10	R	0.68	0.112857618729367
+Puerto Rican vs Colombian	10	20	R	0.7175	0.0877721332110657
+Puerto Rican vs Colombian	10	30	R	0.7325	0.10166379058342
+Puerto Rican vs Colombian	10	40	R	0.755	0.115735633415579
+Puerto Rican vs Colombian	10	50	R	0.77	0.0923380516876639
+Puerto Rican vs Colombian	10	60	R	0.785	0.0828759377179624
+Puerto Rican vs Colombian	10	70	R	0.8	0.0842927230423525
+Puerto Rican vs Colombian	10	80	R	0.8325	0.0730446871154191
+Puerto Rican vs Colombian	10	90	R	0.8425	0.0712205617855731
+Puerto Rican vs Colombian	10	100	R	0.8375	0.0666392487478979
+Puerto Rican vs Colombian	20	10	R	0.65375	0.0816261535745035
+Puerto Rican vs Colombian	20	20	R	0.69875	0.0671188066828241
+Puerto Rican vs Colombian	20	30	R	0.72	0.0728191704082611
+Puerto Rican vs Colombian	20	40	R	0.73625	0.066626907003418
+Puerto Rican vs Colombian	20	50	R	0.7575	0.0556658262359081
+Puerto Rican vs Colombian	20	60	R	0.78	0.0565452776193789
+Puerto Rican vs Colombian	20	70	R	0.79125	0.0569365990887186
+Puerto Rican vs Colombian	20	80	R	0.82	0.0576970308457987
+Puerto Rican vs Colombian	20	90	R	0.8375	0.054107592618295
+Puerto Rican vs Colombian	20	100	R	0.845	0.051041778553404
+Puerto Rican vs Colombian	30	10	R	0.640833333333333	0.0624722160466377
+Puerto Rican vs Colombian	30	20	R	0.685	0.0592102014286084
+Puerto Rican vs Colombian	30	30	R	0.7275	0.0612432118210014
+Puerto Rican vs Colombian	30	40	R	0.738333333333333	0.063545351489361
+Puerto Rican vs Colombian	30	50	R	0.761666666666667	0.045914999014515
+Puerto Rican vs Colombian	30	60	R	0.7825	0.0491075320862527
+Puerto Rican vs Colombian	30	70	R	0.783333333333333	0.0455633996955108
+Puerto Rican vs Colombian	30	80	R	0.8125	0.0411369841139128
+Puerto Rican vs Colombian	30	90	R	0.8325	0.0406363850443624
+Puerto Rican vs Colombian	30	100	R	0.834166666666667	0.0402750049458943
+Puerto Rican vs Colombian	40	10	R	0.63875	0.0465769030178783
+Puerto Rican vs Colombian	40	20	R	0.680625	0.0518529994564594
+Puerto Rican vs Colombian	40	30	R	0.7225	0.0437922728103342
+Puerto Rican vs Colombian	40	40	R	0.741875	0.0546030833426677
+Puerto Rican vs Colombian	40	50	R	0.765625	0.0360178592396956
+Puerto Rican vs Colombian	40	60	R	0.7925	0.0337853129099177
+Puerto Rican vs Colombian	40	70	R	0.794375	0.0323109379394396
+Puerto Rican vs Colombian	40	80	R	0.816875	0.0260550404255865
+Puerto Rican vs Colombian	40	90	R	0.84	0.0273861278752583
+Puerto Rican vs Colombian	40	100	R	0.83875	0.0308594010243061
+Puerto Rican vs Colombian	50	10	R	0.628	0.0334978396789688
+Puerto Rican vs Colombian	50	20	R	0.6695	0.0381789415640005
+Puerto Rican vs Colombian	50	30	R	0.715	0.0395367916596281
+Puerto Rican vs Colombian	50	40	R	0.738	0.0531730046269029
+Puerto Rican vs Colombian	50	50	R	0.7605	0.0330031896385151
+Puerto Rican vs Colombian	50	60	R	0.7885	0.0349849591742087
+Puerto Rican vs Colombian	50	70	R	0.797	0.0332613257323529
+Puerto Rican vs Colombian	50	80	R	0.815	0.0296470465379108
+Puerto Rican vs Colombian	50	90	R	0.837	0.0321345854018278
+Puerto Rican vs Colombian	50	100	R	0.836	0.0315227570260965
+Puerto Rican vs Luhya	10	10	T	1	0
+Puerto Rican vs Luhya	10	20	T	1	0
+Puerto Rican vs Luhya	10	30	T	1	0
+Puerto Rican vs Luhya	10	40	T	1	0
+Puerto Rican vs Luhya	10	50	T	1	0
+Puerto Rican vs Luhya	10	60	T	1	0
+Puerto Rican vs Luhya	10	70	T	1	0
+Puerto Rican vs Luhya	10	80	T	1	0
+Puerto Rican vs Luhya	10	90	T	1	0
+Puerto Rican vs Luhya	10	100	T	1	0
+Puerto Rican vs Luhya	20	10	T	0.975	0
+Puerto Rican vs Luhya	20	20	T	1	0
+Puerto Rican vs Luhya	20	30	T	1	0
+Puerto Rican vs Luhya	20	40	T	1	0
+Puerto Rican vs Luhya	20	50	T	1	0
+Puerto Rican vs Luhya	20	60	T	1	0
+Puerto Rican vs Luhya	20	70	T	1	0
+Puerto Rican vs Luhya	20	80	T	1	0
+Puerto Rican vs Luhya	20	90	T	1	0
+Puerto Rican vs Luhya	20	100	T	1	0
+Puerto Rican vs Luhya	30	10	T	0.983333333333333	0
+Puerto Rican vs Luhya	30	20	T	1	0
+Puerto Rican vs Luhya	30	30	T	1	0
+Puerto Rican vs Luhya	30	40	T	1	0
+Puerto Rican vs Luhya	30	50	T	1	0
+Puerto Rican vs Luhya	30	60	T	1	0
+Puerto Rican vs Luhya	30	70	T	1	0
+Puerto Rican vs Luhya	30	80	T	1	0
+Puerto Rican vs Luhya	30	90	T	1	0
+Puerto Rican vs Luhya	30	100	T	1	0
+Puerto Rican vs Luhya	40	10	T	0.9875	0
+Puerto Rican vs Luhya	40	20	T	1	0
+Puerto Rican vs Luhya	40	30	T	1	0
+Puerto Rican vs Luhya	40	40	T	1	0
+Puerto Rican vs Luhya	40	50	T	1	0
+Puerto Rican vs Luhya	40	60	T	1	0
+Puerto Rican vs Luhya	40	70	T	1	0
+Puerto Rican vs Luhya	40	80	T	1	0
+Puerto Rican vs Luhya	40	90	T	1	0
+Puerto Rican vs Luhya	40	100	T	1	0
+Puerto Rican vs Luhya	50	10	T	0.99	0
+Puerto Rican vs Luhya	50	20	T	1	0
+Puerto Rican vs Luhya	50	30	T	1	0
+Puerto Rican vs Luhya	50	40	T	1	0
+Puerto Rican vs Luhya	50	50	T	1	0
+Puerto Rican vs Luhya	50	60	T	1	0
+Puerto Rican vs Luhya	50	70	T	1	0
+Puerto Rican vs Luhya	50	80	T	1	0
+Puerto Rican vs Luhya	50	90	T	1	0
+Puerto Rican vs Luhya	50	100	T	1	0
+Puerto Rican vs Luhya	10	10	R	0.8075	0.112711788950496
+Puerto Rican vs Luhya	10	20	R	0.91	0.0699623959145573
+Puerto Rican vs Luhya	10	30	R	0.96	0.0502624689950035
+Puerto Rican vs Luhya	10	40	R	0.9775	0.030240265941465
+Puerto Rican vs Luhya	10	50	R	0.985	0.028562028528874
+Puerto Rican vs Luhya	10	60	R	0.9875	0.027505980211009
+Puerto Rican vs Luhya	10	70	R	0.9925	0.0244680242464796
+Puerto Rican vs Luhya	10	80	R	0.9975	0.011180339887499
+Puerto Rican vs Luhya	10	90	R	0.9975	0.011180339887499
+Puerto Rican vs Luhya	10	100	R	0.9975	0.011180339887499
+Puerto Rican vs Luhya	20	10	R	0.80875	0.101071561412278
+Puerto Rican vs Luhya	20	20	R	0.905	0.0559605123937265
+Puerto Rican vs Luhya	20	30	R	0.9575	0.042996327872579
+Puerto Rican vs Luhya	20	40	R	0.9725	0.030240265941465
+Puerto Rican vs Luhya	20	50	R	0.98125	0.0291039425797298
+Puerto Rican vs Luhya	20	60	R	0.9875	0.0206792547967128
+Puerto Rican vs Luhya	20	70	R	0.99125	0.0167705098312484
+Puerto Rican vs Luhya	20	80	R	0.995	0.0130787090945149
+Puerto Rican vs Luhya	20	90	R	0.9975	0.00769483764063866
+Puerto Rican vs Luhya	20	100	R	0.99875	0.00559016994374948
+Puerto Rican vs Luhya	30	10	R	0.809166666666667	0.0876054085221865
+Puerto Rican vs Luhya	30	20	R	0.9075	0.0494043467084042
+Puerto Rican vs Luhya	30	30	R	0.9575	0.0376483420726427
+Puerto Rican vs Luhya	30	40	R	0.969166666666667	0.0311921980048579
+Puerto Rican vs Luhya	30	50	R	0.976666666666667	0.0293197735804185
+Puerto Rican vs Luhya	30	60	R	0.985	0.017013926184468
+Puerto Rican vs Luhya	30	70	R	0.988333333333333	0.0133552451531005
+Puerto Rican vs Luhya	30	80	R	0.99	0.011342617456312
+Puerto Rican vs Luhya	30	90	R	0.996666666666667	0.00683985568056785
+Puerto Rican vs Luhya	30	100	R	0.998333333333333	0.00512989176042589
+Puerto Rican vs Luhya	40	10	R	0.8125	0.0797817747292411
+Puerto Rican vs Luhya	40	20	R	0.9075	0.0433771708087148
+Puerto Rican vs Luhya	40	30	R	0.9575	0.0332949340227451
+Puerto Rican vs Luhya	40	40	R	0.971875	0.0249588477087258
+Puerto Rican vs Luhya	40	50	R	0.97875	0.0233325501121682
+Puerto Rican vs Luhya	40	60	R	0.986875	0.0143241377071233
+Puerto Rican vs Luhya	40	70	R	0.99125	0.0100164338648254
+Puerto Rican vs Luhya	40	80	R	0.99125	0.0100164338648254
+Puerto Rican vs Luhya	40	90	R	0.99625	0.00587702932477032
+Puerto Rican vs Luhya	40	100	R	0.998125	0.00457934435665652
+Puerto Rican vs Luhya	50	10	R	0.8165	0.0727124835441473
+Puerto Rican vs Luhya	50	20	R	0.907	0.040013155731321
+Puerto Rican vs Luhya	50	30	R	0.954	0.0296292884970616
+Puerto Rican vs Luhya	50	40	R	0.97	0.0242790791466754
+Puerto Rican vs Luhya	50	50	R	0.9765	0.0249789384966826
+Puerto Rican vs Luhya	50	60	R	0.9865	0.0122581873821025
+Puerto Rican vs Luhya	50	70	R	0.9915	0.0081272770088725
+Puerto Rican vs Luhya	50	80	R	0.9915	0.0081272770088725
+Puerto Rican vs Luhya	50	90	R	0.9965	0.00489360484929593
+Puerto Rican vs Luhya	50	100	R	0.998	0.00410391340834062
+Luhya vs Dai	10	10	T	1	0
+Luhya vs Dai	10	20	T	1	0
+Luhya vs Dai	10	30	T	1	0
+Luhya vs Dai	10	40	T	1	0
+Luhya vs Dai	10	50	T	1	0
+Luhya vs Dai	10	60	T	1	0
+Luhya vs Dai	10	70	T	1	0
+Luhya vs Dai	10	80	T	1	0
+Luhya vs Dai	10	90	T	1	0
+Luhya vs Dai	10	100	T	1	0
+Luhya vs Dai	20	10	T	1	0
+Luhya vs Dai	20	20	T	1	0
+Luhya vs Dai	20	30	T	1	0
+Luhya vs Dai	20	40	T	1	0
+Luhya vs Dai	20	50	T	1	0
+Luhya vs Dai	20	60	T	1	0
+Luhya vs Dai	20	70	T	1	0
+Luhya vs Dai	20	80	T	1	0
+Luhya vs Dai	20	90	T	1	0
+Luhya vs Dai	20	100	T	1	0
+Luhya vs Dai	30	10	T	1	0
+Luhya vs Dai	30	20	T	1	0
+Luhya vs Dai	30	30	T	1	0
+Luhya vs Dai	30	40	T	1	0
+Luhya vs Dai	30	50	T	1	0
+Luhya vs Dai	30	60	T	1	0
+Luhya vs Dai	30	70	T	1	0
+Luhya vs Dai	30	80	T	1	0
+Luhya vs Dai	30	90	T	1	0
+Luhya vs Dai	30	100	T	1	0
+Luhya vs Dai	40	10	T	1	0
+Luhya vs Dai	40	20	T	1	0
+Luhya vs Dai	40	30	T	1	0
+Luhya vs Dai	40	40	T	1	0
+Luhya vs Dai	40	50	T	1	0
+Luhya vs Dai	40	60	T	1	0
+Luhya vs Dai	40	70	T	1	0
+Luhya vs Dai	40	80	T	1	0
+Luhya vs Dai	40	90	T	1	0
+Luhya vs Dai	40	100	T	1	0
+Luhya vs Dai	50	10	T	1	0
+Luhya vs Dai	50	20	T	1	0
+Luhya vs Dai	50	30	T	1	0
+Luhya vs Dai	50	40	T	1	0
+Luhya vs Dai	50	50	T	1	0
+Luhya vs Dai	50	60	T	1	0
+Luhya vs Dai	50	70	T	1	0
+Luhya vs Dai	50	80	T	1	0
+Luhya vs Dai	50	90	T	1	0
+Luhya vs Dai	50	100	T	1	0
+Luhya vs Dai	10	10	R	0.8775	0.0938573946277851
+Luhya vs Dai	10	20	R	0.9575	0.0674244216258393
+Luhya vs Dai	10	30	R	0.985	0.028562028528874
+Luhya vs Dai	10	40	R	0.995	0.0153896752812773
+Luhya vs Dai	10	50	R	0.9975	0.011180339887499
+Luhya vs Dai	10	60	R	1	0
+Luhya vs Dai	10	70	R	1	0
+Luhya vs Dai	10	80	R	1	0
+Luhya vs Dai	10	90	R	1	0
+Luhya vs Dai	10	100	R	1	0
+Luhya vs Dai	20	10	R	0.89125	0.0722181454090022
+Luhya vs Dai	20	20	R	0.9575	0.0459547832685908
+Luhya vs Dai	20	30	R	0.98125	0.0302130592189606
+Luhya vs Dai	20	40	R	0.995	0.0102597835208515
+Luhya vs Dai	20	50	R	0.99875	0.00559016994374948
+Luhya vs Dai	20	60	R	1	0
+Luhya vs Dai	20	70	R	1	0
+Luhya vs Dai	20	80	R	1	0
+Luhya vs Dai	20	90	R	1	0
+Luhya vs Dai	20	100	R	1	0
+Luhya vs Dai	30	10	R	0.8875	0.0613862757772547
+Luhya vs Dai	30	20	R	0.96	0.0391428632408267
+Luhya vs Dai	30	30	R	0.985	0.022229530961845
+Luhya vs Dai	30	40	R	0.995	0.00783603909969381
+Luhya vs Dai	30	50	R	0.998333333333333	0.00512989176042579
+Luhya vs Dai	30	60	R	0.999166666666667	0.00372677996249966
+Luhya vs Dai	30	70	R	1	0
+Luhya vs Dai	30	80	R	1	0
+Luhya vs Dai	30	90	R	1	0
+Luhya vs Dai	30	100	R	1	0
+Luhya vs Dai	40	10	R	0.89375	0.0535729949645685
+Luhya vs Dai	40	20	R	0.965625	0.0313813030993062
+Luhya vs Dai	40	30	R	0.9875	0.0176776695296637
+Luhya vs Dai	40	40	R	0.995625	0.00733928685765499
+Luhya vs Dai	40	50	R	0.99875	0.00384741882031931
+Luhya vs Dai	40	60	R	0.999375	0.00279508497187473
+Luhya vs Dai	40	70	R	1	0
+Luhya vs Dai	40	80	R	1	0
+Luhya vs Dai	40	90	R	1	0
+Luhya vs Dai	40	100	R	1	0
+Luhya vs Dai	50	10	R	0.892	0.052575759873879
+Luhya vs Dai	50	20	R	0.965	0.0308647303397805
+Luhya vs Dai	50	30	R	0.989	0.0148323969741913
+Luhya vs Dai	50	40	R	0.996	0.00680557047378721
+Luhya vs Dai	50	50	R	0.999	0.00307793505625547
+Luhya vs Dai	50	60	R	0.9995	0.00223606797749979
+Luhya vs Dai	50	70	R	1	0
+Luhya vs Dai	50	80	R	1	0
+Luhya vs Dai	50	90	R	1	0
+Luhya vs Dai	50	100	R	1	0
